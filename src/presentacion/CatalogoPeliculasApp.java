@@ -34,6 +34,7 @@ public class CatalogoPeliculasApp {
                 """);
     }// fin funcion mostrarmenu
     private static boolean ejecutarOpciones(Scanner consola, IServicioPeliculas servicioPeliculas){
+        System.out.println("Introduce la opción: ");
         var opcion = Integer.parseInt(consola.nextLine());
         var salir = false;
         switch (opcion){
