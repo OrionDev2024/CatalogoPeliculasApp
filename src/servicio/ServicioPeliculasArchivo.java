@@ -67,6 +67,34 @@ public class ServicioPeliculasArchivo implements IServicioPeliculas{
 
     @Override
     public void buscarPelicula(Pelicula pelicula) {
-
+        var archivo = new File(NOMBRE_ARCHIVO);
+        try {
+            //Abrimos el archivo para lectura línea a línea.
+            var entrada = new BufferedReader(new FileReader(archivo));
+            String lineaTexto;
+            lineaTexto = entrada.readLine();
+            var indice = 1;
+            var encontrada = false;
+            var peliculaBuscar = pelicula.getNombre();
+            while (lineaTexto != null){
+                //Buscamos sin importar mayusculas/minusculas
+                if (peliculaBuscar != null && peliculaBuscar.equalsIgnoreCase(lineaTexto)){
+                    encontrada = true;
+                    break;
+                }
+                //Leemos la siguiente línea antes de la siguiente iteración
+                lineaTexto = entrada.readLine();
+                indice++;
+            }//fin de while
+            //Imprimimos los resultados de la busqueda
+            if (encontrada){
+                System.out.println("Película " + lineaTexto + " encontrada - líena " + indice);
+            }else {
+                System.out.println("No se ha encontrado la película: " + pelicula.getNombre());
+                entrada.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Ocurrio un error al buscar en el archivo: " + e.getMessage());
+        }
     }
 }
